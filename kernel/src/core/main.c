@@ -12,7 +12,7 @@ void uart_irq_handler(void) {
     while (MINEMU_UART0->status & MINEMU_UART_STATUS_RX_READY) {
         char c = (char)MINEMU_UART0->rx_data;
 
-        if (c == '\n' || c == '\r') {
+        if (c == '\n') {
             rx_buffer[rx_index] = '\0';
             line_ready = 1;
         } else if (c == 0x08 || c == 0x7f) {
