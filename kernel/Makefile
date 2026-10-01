@@ -10,6 +10,7 @@ CORE_OBJECT := $(BUILD)/core/main.o
 RUNTIME_OBJECTS := \
 	$(BUILD)/runtime/block.o \
 	$(BUILD)/runtime/exception.o \
+	$(BUILD)/runtime/irq.o \
 	$(BUILD)/runtime/memory.o \
 	$(BUILD)/runtime/trace.o \
 	$(BUILD)/startup/boot.o \
@@ -70,6 +71,10 @@ $(BUILD)/runtime/%.o: src/runtime/%.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(BUILD)/startup/%.o: src/startup/%.S
+	@mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(ASFLAGS) -c $< -o $@
+
+$(BUILD)/runtime/%.o: src/runtime/%.S
 	@mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(ASFLAGS) -c $< -o $@
 
